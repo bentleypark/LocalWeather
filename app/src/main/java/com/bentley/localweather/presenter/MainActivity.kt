@@ -1,7 +1,8 @@
-package com.bentley.localweather
+package com.bentley.localweather.presenter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bentley.localweather.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

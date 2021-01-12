@@ -1,4 +1,7 @@
 buildscript {
+    ext {
+        kotlin_version = '1.4.21'
+    }
     repositories {
         google()
         jcenter()
@@ -7,6 +10,7 @@ buildscript {
         classpath Libs.androidGradlePlugin
         classpath Libs.kotlinGradlePlugin
         classpath Libs.navSafeArgPlugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
