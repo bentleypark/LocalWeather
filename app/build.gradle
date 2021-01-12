@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -51,6 +52,33 @@ dependencies {
     implementation Libs.appcompat
     implementation Libs.material
     implementation Libs.constraintlayout
+    implementation Libs.recyclerview
+    implementation Libs.liveData
+    implementation Libs.viewModel
+
+    implementation Libs.startUp
+    implementation Libs.navUi
+    implementation Libs.navUiKtx
+    implementation Libs.navFragment
+    implementation Libs.navFragmentKtx
+
+    implementation Libs.hiltAndroid
+    implementation Libs.hiltViewModel
+    kapt Libs.hiltAndroidCompiler
+    kapt Libs.hiltCompiler
+
+    implementation Libs.coroutineAndroid
+    implementation Libs.coroutineCore
+
+    implementation Libs.retrofit
+    implementation Libs.gson
+    implementation Libs.gsonConverter
+    implementation Libs.okhttp
+    implementation Libs.loggingInterceptor
+
+    implementation Libs.coil
+
+    implementation Libs.timber
 
     testImplementation Libs.junit4
     androidTestImplementation Libs.junitExt
