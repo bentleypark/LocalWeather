@@ -11,6 +11,10 @@ object Versions {
     // Coroutines
     const val coroutineVersion = "1.4.2"
 
+    // RxJava
+    const val rxJavaVersion = "2.2.20"
+    const val rxAndroidVersion = "2.1.1"
+
     // AndroidX
     const val appCompatVersion = "1.2.0"
     const val constraintLayoutVersion = "2.0.4"
