@@ -1,4 +1,4 @@
-package com.bentley.localweather.presenter
+package com.bentley.localweather.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
