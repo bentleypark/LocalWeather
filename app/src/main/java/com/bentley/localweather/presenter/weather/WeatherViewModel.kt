@@ -12,10 +12,8 @@ import kotlinx.coroutines.launch
 class WeatherViewModel @ViewModelInject
 constructor(private val weatherRepository: WeatherUseCase) : ViewModel() {
 
-    private val _dataState: MutableLiveData<DataState<List<Weather>>> = MutableLiveData()
-
-    val dataState: LiveData<DataState<List<Weather>>>
-        get() = _dataState
+    private val _dataState = MutableLiveData<DataState<List<Weather>>>()
+    val dataState: LiveData<DataState<List<Weather>>> get() = _dataState
 
     fun getWeatherInfo() {
         viewModelScope.launch {
