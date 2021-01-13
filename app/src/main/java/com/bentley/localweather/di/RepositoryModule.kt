@@ -2,6 +2,7 @@ package com.bentley.localweather.di
 
 import com.bentley.localweather.data.ApiService
 import com.bentley.localweather.data.WeatherRepositoryImpl
+import com.bentley.localweather.data.mapper.WeatherMapper
 import com.bentley.localweather.domain.WeatherRepository
 import dagger.Module
 import dagger.Provides
@@ -17,7 +18,14 @@ object RepositoryModule {
     @Provides
     fun provideMainRepository(
         apiService: ApiService,
+        weatherMapper: WeatherMapper
     ): WeatherRepository {
-        return WeatherRepositoryImpl(apiService)
+        return WeatherRepositoryImpl(apiService, weatherMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherMapper(): WeatherMapper {
+        return WeatherMapper()
     }
 }
