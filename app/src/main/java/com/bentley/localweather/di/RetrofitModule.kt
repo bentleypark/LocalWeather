@@ -2,8 +2,8 @@ package com.bentley.localweather.di
 
 import android.content.Context
 import com.bentley.localweather.App
-import com.bentley.localweather.data.ApiService
-import com.bentley.localweather.data.AuthInterceptor
+import com.bentley.localweather.data.api.ApiService
+import com.bentley.localweather.data.util.AuthInterceptor
 import com.bentley.localweather.utils.NetworkCheck
 import dagger.Module
 import dagger.Provides
@@ -13,6 +13,7 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -46,7 +47,9 @@ object RetrofitModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(ApiService.BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
+
     }
 
     @Singleton

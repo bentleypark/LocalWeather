@@ -85,6 +85,7 @@ object Libs {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
     const val gsonConverter =
         "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
+    const val rxjavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofitVersion}"
 
     // Okhttp
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp3Version}"

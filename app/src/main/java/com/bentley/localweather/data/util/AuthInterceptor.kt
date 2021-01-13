@@ -1,4 +1,4 @@
-package com.bentley.localweather.data
+package com.bentley.localweather.data.util
 
 import com.bentley.localweather.utils.NetworkCheck
 import okhttp3.Interceptor

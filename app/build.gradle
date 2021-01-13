@@ -76,6 +76,7 @@ dependencies {
     implementation Libs.retrofit
     implementation Libs.gson
     implementation Libs.gsonConverter
+    implementation Libs.rxjavaAdapter
     implementation Libs.okhttp
     implementation Libs.loggingInterceptor
 
