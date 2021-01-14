@@ -27,7 +27,7 @@ class ConsolidatedWeatherMapper @Inject constructor() :
                     weatherStateAbbr,
                     date.getDate(),
                     temp.toInt(),
-                    humidity
+                    humidity.toInt()
                 )
             }
         }[0]

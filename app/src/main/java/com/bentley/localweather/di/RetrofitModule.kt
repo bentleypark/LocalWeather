@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -29,13 +30,16 @@ object RetrofitModule {
         val cacheSize = (10 * 1024 * 1024).toLong()
         val myCache = Cache(context.cacheDir, cacheSize)
 
-        val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
+        val httpClient: OkHttpClient.Builder =
+            OkHttpClient.Builder().connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+
         with(httpClient) {
             logger.setLevel(HttpLoggingInterceptor.Level.HEADERS)
             logger.setLevel(HttpLoggingInterceptor.Level.BODY)
             addInterceptor(logger)
             addInterceptor(authInterceptor)
-            cache(myCache)
+//            cache(myCache)
         }
 
         return httpClient.build()
@@ -47,7 +51,7 @@ object RetrofitModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(ApiService.BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
 
     }

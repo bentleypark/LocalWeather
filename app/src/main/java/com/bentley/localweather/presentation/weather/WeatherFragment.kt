@@ -42,6 +42,20 @@ class WeatherFragment : Fragment() {
                 if (response.isNotEmpty()) {
                     weatherList = response
                     fetchNextWeatherInfo()
+
+                    Timber.d("list count ${weatherListAdapter.itemCount}")
+                    if (weatherListAdapter.itemCount == 0) {
+                        Timber.d("list add")
+                        weatherListAdapter.addList(weatherList)
+                    }
+                    else {
+                        Timber.d("list update")
+                        weatherListAdapter.notifyItemRangeChanged(
+                            0,
+                            weatherListAdapter.itemCount,
+                            weatherList
+                        )
+                    }
                 }
             })
         }

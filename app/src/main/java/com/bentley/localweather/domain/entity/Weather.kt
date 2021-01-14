@@ -15,5 +15,5 @@ data class ConsolidatedWeather(
     val weatherStateAbbr: String,
     val date: Int,
     val temp: Int,
-    val humidity: Float,
+    val humidity: Int,
 )

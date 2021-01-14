@@ -18,14 +18,14 @@ class AuthInterceptor constructor(private val networkCheck: NetworkCheck) : Inte
         requestBuilder.addHeader("Content-Type", "application/json")
 
         Timber.d("Network Status: ${networkCheck.isConnected()}")
-        if (networkCheck.isConnected()) {
-            requestBuilder.header("Cache-Control", "public, max-age=" + 60).build()
-        } else {
-            requestBuilder.header(
-                "Cache-Control",
-                "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
-            ).build()
-        }
+//        if (networkCheck.isConnected()) {
+//            requestBuilder.header("Cache-Control", "public, max-age=" + 60).build()
+//        } else {
+//            requestBuilder.header(
+//                "Cache-Control",
+//                "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
+//            ).build()
+//        }
 
         return chain.proceed(requestBuilder.build())
     }
