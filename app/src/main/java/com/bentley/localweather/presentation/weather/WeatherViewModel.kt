@@ -34,11 +34,13 @@ constructor(private val weatherUseCase: WeatherUseCase) : ViewModel() {
         }
     }
 
-    private fun fetchWeatherInfo() {
+    fun fetchWeatherInfo() {
         if (date <= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1)
             searchResult.forEach { location ->
                 getConsolidatedWeather(location)
-            }
+            } else {
+            clear()
+        }
     }
 
     private fun getConsolidatedWeather(location: Location) {
@@ -58,6 +60,13 @@ constructor(private val weatherUseCase: WeatherUseCase) : ViewModel() {
         weatherList = mutableListOf()
 
         fetchWeatherInfo()
+    }
+
+    private fun clear() {
+        Timber.d("clear $date")
+        date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        weatherList = mutableListOf()
+        Timber.d("clear $date")
     }
 
     companion object {

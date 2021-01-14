@@ -12,7 +12,6 @@ import com.bentley.localweather.R
 import com.bentley.localweather.databinding.ItemWeatherInfoBinding
 import com.bentley.localweather.databinding.ItemWeatherInfoHeaderBinding
 import com.bentley.localweather.domain.entity.WeatherInfo
-import timber.log.Timber
 import java.util.*
 
 class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
@@ -23,7 +22,6 @@ class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        Timber.d("viewType $viewType")
         return when (viewType) {
             TYPE_ITEM -> {
                 binding = ItemWeatherInfoBinding.inflate(layoutInflater)
@@ -54,7 +52,6 @@ class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
         when (holder) {
             is WeatherListViewHolder -> {
                 if (payloads.isNotEmpty()) {
-                    Timber.d("payload $payloads")
                     val tomorrowWeatherInfo = payloads[0] as List<WeatherInfo>
                     holder.bind(tomorrowWeatherInfo[position - 1])
 
@@ -168,7 +165,6 @@ class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
         const val HEAVY_RAIN = "hr"
         const val THUNDERSTORM = "t"
         const val HAIL = "h"
-        const val SLEET = "sl"
         const val SNOW = "sn"
 
         const val TYPE_HEADER = 0

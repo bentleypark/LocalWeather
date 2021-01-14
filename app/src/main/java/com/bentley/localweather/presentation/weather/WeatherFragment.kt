@@ -13,6 +13,7 @@ import com.bentley.localweather.utils.makeGone
 import com.bentley.localweather.utils.makeVisible
 import com.bentley.localweather.utils.viewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -77,6 +78,16 @@ class WeatherFragment : Fragment() {
             rvWeatherList.apply {
                 adapter = weatherListAdapter
                 setHasFixedSize(true)
+            }
+
+            swipeLayout.setOnRefreshListener {
+                lifecycleScope.launch{
+                    rvWeatherList.makeGone()
+                    viewModel.fetchWeatherInfo()
+                    delay(3000)
+                    swipeLayout.isRefreshing = false
+                    rvWeatherList.makeVisible()
+                }
             }
         }
     }
