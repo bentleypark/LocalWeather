@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingVertical="8dp"
     android:paddingHorizontal="8dp"
-    android:background="@drawable/border">
+    android:background="@drawable/item_weather_detail_border">
 
     <ImageView
         android:id="@+id/iv_weather"
