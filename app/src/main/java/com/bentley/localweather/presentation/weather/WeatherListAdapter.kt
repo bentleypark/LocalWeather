@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bentley.localweather.R
+import com.bentley.localweather.databinding.ItemWeatherInfoBinding
 import com.bentley.localweather.databinding.ItemWeatherInfoHeaderBinding
-import com.bentley.localweather.databinding.ItemWeatherLnfoBinding
 import com.bentley.localweather.domain.entity.WeatherInfo
 import timber.log.Timber
 import java.util.*
@@ -19,7 +18,7 @@ import java.util.*
 class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private lateinit var binding: ItemWeatherLnfoBinding
+    private lateinit var binding: ItemWeatherInfoBinding
     private lateinit var header: ItemWeatherInfoHeaderBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -27,7 +26,7 @@ class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
         Timber.d("viewType $viewType")
         return when (viewType) {
             TYPE_ITEM -> {
-                binding = ItemWeatherLnfoBinding.inflate(layoutInflater)
+                binding = ItemWeatherInfoBinding.inflate(layoutInflater)
                 WeatherListViewHolder(binding)
             }
             TYPE_HEADER -> {
@@ -80,7 +79,7 @@ class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
         notifyDataSetChanged()
     }
 
-    class WeatherListViewHolder(private val binding: ItemWeatherLnfoBinding) :
+    class WeatherListViewHolder(private val binding: ItemWeatherInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: WeatherInfo) {
@@ -177,32 +176,3 @@ class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
         const val HEADER_SIZE = 1
     }
 }
-
-//
-//override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListViewHolder {
-//    val layoutInflater = LayoutInflater.from(parent.context)
-//    binding = ItemWeatherLnfoBinding.inflate(layoutInflater)
-//    return WeatherListViewHolder(binding)
-//}
-//
-//override fun onBindViewHolder(holder: WeatherListViewHolder, position: Int) {
-//    val item = list[position]
-//    holder.bind(item)
-//}
-//
-//override fun onBindViewHolder(
-//    holder: WeatherListViewHolder,
-//    position: Int,
-//    payloads: MutableList<Any>
-//) {
-//    if (payloads.isNotEmpty()) {
-//        Timber.d("payload $payloads")
-//        val tomorrowWeatherInfo = payloads[0] as List<WeatherInfo>
-//        holder.bind(tomorrowWeatherInfo[position])
-//
-//    } else {
-//        super.onBindViewHolder(holder, position, payloads)
-//    }
-//}
-//
-//}
