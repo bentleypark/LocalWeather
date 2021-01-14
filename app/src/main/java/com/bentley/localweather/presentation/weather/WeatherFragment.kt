@@ -6,10 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bentley.localweather.databinding.FragmentWeatherBinding
 import com.bentley.localweather.domain.entity.WeatherInfo
+import com.bentley.localweather.utils.makeGone
+import com.bentley.localweather.utils.makeVisible
 import com.bentley.localweather.utils.viewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -43,9 +48,17 @@ class WeatherFragment : Fragment() {
                     weatherList = response
                     fetchNextWeatherInfo()
 
-                    Timber.d("list count ${weatherListAdapter.itemCount}")
-                    if (weatherListAdapter.itemCount == 1) {
+                    if (weatherListAdapter.itemCount == DEFAULT_LIST_SIZE) {
                         weatherListAdapter.addList(weatherList)
+
+                        lifecycleScope.launch {
+                            delay(2500)
+                            binding.apply {
+                                tvTitle.makeVisible()
+                                rvWeatherList.makeVisible()
+                                progressCircular.makeGone()
+                            }
+                        }
                     } else {
                         weatherListAdapter.notifyItemRangeChanged(
                             0,
@@ -66,6 +79,10 @@ class WeatherFragment : Fragment() {
                 setHasFixedSize(true)
             }
         }
+    }
+
+    companion object {
+        const val DEFAULT_LIST_SIZE = 1
     }
 
 }
