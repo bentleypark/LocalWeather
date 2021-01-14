@@ -57,3 +57,9 @@ fun <T> Fragment.viewLifecycle(): ReadWriteProperty<Fragment, T> =
             this.binding = value
         }
     }
+
+fun String.getDate(): Int {
+    val length = this.length - 1
+    val range = IntRange(length - 1, length)
+    return this.slice(range).toInt()
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="8dp"
+    android:background="@drawable/border">
+
+    <ImageView
+        android:id="@+id/iv_weather"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tool:background="@drawable/ic_clear" />
+
+    <TextView
+        android:id="@+id/tv_weather_abbr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_weather"
+        app:layout_constraintTop_toTopOf="@+id/iv_weather"
+        tool:text="Clear" />
+
+    <TextView
+        android:id="@+id/tv_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_weather_abbr"
+        app:layout_constraintTop_toBottomOf="@+id/tv_weather_abbr"
+        tool:text="12 ℃" />
+
+    <TextView
+        android:id="@+id/tv_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
+        app:layout_constraintStart_toEndOf="@+id/tv_temp"
+        tool:text="69 %" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

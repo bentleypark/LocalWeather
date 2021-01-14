@@ -18,6 +18,7 @@ class WeatherFragment : Fragment() {
     private val viewModel: WeatherViewModel by viewModels()
     private var binding: FragmentWeatherBinding by viewLifecycle()
     private var weatherList = mutableListOf<WeatherInfo>()
+    private lateinit var weatherListAdapter: WeatherListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +31,11 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tv.text = "test"
+        setUpObserve()
+        setUpView()
+    }
 
+    private fun setUpObserve() {
         viewModel.apply {
             weatherInfo.observe(viewLifecycleOwner, { response ->
                 Timber.d(response.toString())
@@ -42,4 +46,15 @@ class WeatherFragment : Fragment() {
             })
         }
     }
+
+    private fun setUpView() {
+        weatherListAdapter = WeatherListAdapter(weatherList)
+        binding.apply {
+            rvWeatherList.apply {
+                adapter = weatherListAdapter
+                setHasFixedSize(true)
+            }
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ import com.bentley.localweather.data.entity.ConsolidatedWeatherEntity
 import com.bentley.localweather.data.entity.WeatherEntity
 import com.bentley.localweather.domain.entity.ConsolidatedWeather
 import com.bentley.localweather.domain.entity.Location
+import com.bentley.localweather.utils.getDate
 import javax.inject.Inject
 
 class WeatherMapper @Inject constructor() : EntityMapper<List<WeatherEntity>, List<Location>> {
@@ -21,7 +22,13 @@ class ConsolidatedWeatherMapper @Inject constructor() :
     override fun mapFromEntity(entity: List<ConsolidatedWeatherEntity>): ConsolidatedWeather {
         return entity.map {
             with(it) {
-                ConsolidatedWeather(weatherState, weatherStateAbbr, date, temp.toInt(), humidity)
+                ConsolidatedWeather(
+                    weatherState,
+                    weatherStateAbbr,
+                    date.getDate(),
+                    temp.toInt(),
+                    humidity
+                )
             }
         }[0]
     }

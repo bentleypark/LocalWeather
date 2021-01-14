@@ -13,7 +13,7 @@ data class WeatherInfo(
 data class ConsolidatedWeather(
     val weatherState: String,
     val weatherStateAbbr: String,
-    val date: String,
+    val date: Int,
     val temp: Int,
     val humidity: Float,
 )
