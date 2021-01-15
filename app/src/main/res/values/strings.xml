@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LocalWeather</string>
+    <string name="title">Local Weather</string>
+    <string name="header_title1">Local</string>
+    <string name="header_title2">Today</string>
+    <string name="header_title3">Tomorrow</string>
 </resources>

@@ -4,14 +4,14 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingVertical="8dp"
-    android:paddingHorizontal="8dp"
+    android:paddingVertical="@dimen/item_weather_detail_padding"
+    android:paddingHorizontal="@dimen/item_weather_detail_padding"
     android:background="@drawable/item_weather_detail_border">
 
     <ImageView
         android:id="@+id/iv_weather"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/item_weather_detail_image_view_size"
+        android:layout_height="@dimen/item_weather_detail_image_view_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tool:background="@drawable/ic_clear" />

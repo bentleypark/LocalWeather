@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fragment_weather_margin_vertical">16dp</dimen>
+    <dimen name="fragment_weather_margin_horizontal">8dp</dimen>
+    <dimen name="fragment_weather_progressbar_size">50dp</dimen>
+
+    <dimen name="item_weather_info_text_view_width">50dp</dimen>
+    <dimen name="item_weather_detail_image_view_size">40dp</dimen>
+    <dimen name="item_weather_detail_padding">8dp</dimen>
+</resources>

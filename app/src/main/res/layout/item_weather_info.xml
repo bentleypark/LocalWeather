@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="50dp"
+        android:layout_width="@dimen/item_weather_info_text_view_width"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         app:layout_constrainedHeight="true"
