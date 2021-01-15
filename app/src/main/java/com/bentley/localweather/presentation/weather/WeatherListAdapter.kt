@@ -91,38 +91,34 @@ class WeatherListAdapter(private val list: MutableList<WeatherInfo>) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: WeatherInfo) {
-            val current = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
             binding.apply {
 
                 if (tvTitle.text.isEmpty()) {
                     tvTitle.text = item.location.title
                 }
 
-                if (item.weatherInfo.date == current) {
-                    today.apply {
-                        ivWeather.load(
-                            findWeatherImage(
-                                ivWeather.context,
-                                item.weatherInfo.weatherStateAbbr
-                            )
+                today.apply {
+                    ivWeather.load(
+                        findWeatherImage(
+                            ivWeather.context,
+                            item.weatherInfo[0].weatherStateAbbr
                         )
+                    )
 
-                        tvWeatherState.text = item.weatherInfo.weatherState
-                        tvTemp.text = "${item.weatherInfo.temp} ℃"
-                        tvHumidity.text = "${item.weatherInfo.humidity} %"
-                    }
-                } else {
-                    tomorrow.apply {
-                        ivWeather.load(
-                            findWeatherImage(
-                                ivWeather.context,
-                                item.weatherInfo.weatherStateAbbr
-                            )
+                    tvWeatherState.text = item.weatherInfo[0].weatherState
+                    tvTemp.text = "${item.weatherInfo[0].temp} ℃"
+                    tvHumidity.text = "${item.weatherInfo[0].humidity} %"
+                }
+                tomorrow.apply {
+                    ivWeather.load(
+                        findWeatherImage(
+                            ivWeather.context,
+                            item.weatherInfo[1].weatherStateAbbr
                         )
-                        tvWeatherState.text = item.weatherInfo.weatherState
-                        tvTemp.text = "${item.weatherInfo.temp} ℃"
-                        tvHumidity.text = "${item.weatherInfo.humidity} %"
-                    }
+                    )
+                    tvWeatherState.text = item.weatherInfo[1].weatherState
+                    tvTemp.text = "${item.weatherInfo[1].temp} ℃"
+                    tvHumidity.text = "${item.weatherInfo[1].humidity} %"
                 }
             }
         }

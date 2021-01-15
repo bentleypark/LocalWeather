@@ -7,12 +7,12 @@ data class Location(
 
 data class WeatherInfo(
     val location: Location,
-    val weatherInfo: ConsolidatedWeather
+    val weatherInfo: MutableList<ConsolidatedWeather>
 )
 
 data class ConsolidatedWeather(
-    val id: Double,
-    val weatherState: String,
+    val id: Double ,
+    val weatherState: String ,
     val weatherStateAbbr: String,
     val date: Int,
     val temp: Int,

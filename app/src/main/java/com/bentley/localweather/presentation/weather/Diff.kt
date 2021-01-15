@@ -10,8 +10,8 @@ class Diff(private val oldItems: List<WeatherInfo>, private val newItems: List<W
     override fun getNewListSize() = newItems.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = oldItems[oldItemPosition].weatherInfo.id
-        val newItem = newItems[newItemPosition].weatherInfo.id
+        val oldItem = oldItems[oldItemPosition].weatherInfo
+        val newItem = newItems[newItemPosition].weatherInfo
 
         return oldItem == newItem
     }

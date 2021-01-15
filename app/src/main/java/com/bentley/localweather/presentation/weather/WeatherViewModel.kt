@@ -6,6 +6,9 @@ import com.bentley.localweather.domain.WeatherUseCase
 import com.bentley.localweather.domain.entity.Location
 import com.bentley.localweather.domain.entity.WeatherInfo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -33,18 +36,24 @@ constructor(private val weatherUseCase: WeatherUseCase) : ViewModel() {
     }
 
     fun fetchWeatherInfo() {
-        if (date <= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1)
-            searchResult.forEach { location ->
-                getConsolidatedWeather(location)
-            } else {
-            clear()
+        if (weatherList.isNotEmpty()) {
+            weatherList = mutableListOf()
+        }
+
+        searchResult.forEach { location ->
+            getConsolidatedWeather(location)
         }
     }
 
     private fun getConsolidatedWeather(location: Location) {
         viewModelScope.launch(Dispatchers.Main) {
-            weatherUseCase.getConsolidatedWeather(location.id, date).let {
-                weatherList.add(WeatherInfo(location, it))
+            val today = flowOf(weatherUseCase.getConsolidatedWeather(location.id, date))
+            val tomorrow = flowOf(weatherUseCase.getConsolidatedWeather(location.id, date + 1))
+
+            today.zip(tomorrow) { todayW, tomorrowW ->
+                WeatherInfo(location, mutableListOf(todayW, tomorrowW))
+            }.collect {
+                weatherList.add(it)
             }
 
             if (weatherList.size == searchResult.size) {
@@ -52,18 +61,6 @@ constructor(private val weatherUseCase: WeatherUseCase) : ViewModel() {
                     weatherList.sortedBy { it.location.title }.toMutableList()
             }
         }
-    }
-
-    fun fetchNextWeatherInfo() {
-        date += 1
-        weatherList = mutableListOf()
-
-        fetchWeatherInfo()
-    }
-
-    private fun clear() {
-        date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-        weatherList = mutableListOf()
     }
 
     companion object {

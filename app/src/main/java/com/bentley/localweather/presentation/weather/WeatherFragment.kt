@@ -23,7 +23,6 @@ class WeatherFragment : Fragment() {
     private var binding: FragmentWeatherBinding by viewLifecycle()
     private var weatherList = mutableListOf<WeatherInfo>()
     private lateinit var weatherListAdapter: WeatherListAdapter
-    private var isRefresh = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,29 +44,15 @@ class WeatherFragment : Fragment() {
             weatherInfo.observe(viewLifecycleOwner, { response ->
                 if (response.isNotEmpty()) {
                     weatherList = response
-                    fetchNextWeatherInfo()
 
-                    if (!isRefresh) {
-                        if (weatherListAdapter.itemCount == DEFAULT_LIST_SIZE) {
-                            weatherListAdapter.addList(weatherList)
-
-                            lifecycleScope.launch {
-                                delay(2500)
-                                binding.apply {
-                                    tvTitle.makeVisible()
-                                    rvWeatherList.makeVisible()
-                                    progressCircular.makeGone()
-                                }
-                            }
-                        } else {
-                            weatherListAdapter.notifyItemRangeChanged(
-                                0,
-                                weatherListAdapter.itemCount,
-                                weatherList
-                            )
+                    weatherListAdapter.updateList(weatherList)
+                    lifecycleScope.launch {
+                        delay(1500)
+                        binding.apply {
+                            tvTitle.makeVisible()
+                            rvWeatherList.makeVisible()
+                            progressCircular.makeGone()
                         }
-                    } else {
-                        weatherListAdapter.updateList(weatherList)
                     }
                 }
             })
@@ -85,20 +70,15 @@ class WeatherFragment : Fragment() {
 
             swipeLayout.setOnRefreshListener {
                 lifecycleScope.launch {
-                    isRefresh = true
                     rvWeatherList.makeGone()
                     viewModel.fetchWeatherInfo()
-                    delay(6000)
+
+                    delay(3000)
                     swipeLayout.isRefreshing = false
                     rvWeatherList.makeVisible()
-                    isRefresh = false
                 }
             }
         }
-    }
-
-    companion object {
-        const val DEFAULT_LIST_SIZE = 1
     }
 
 }
