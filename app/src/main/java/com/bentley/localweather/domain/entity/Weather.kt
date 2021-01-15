@@ -11,6 +11,7 @@ data class WeatherInfo(
 )
 
 data class ConsolidatedWeather(
+    val id: Double,
     val weatherState: String,
     val weatherStateAbbr: String,
     val date: Int,

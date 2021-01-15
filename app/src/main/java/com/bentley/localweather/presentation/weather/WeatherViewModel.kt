@@ -6,9 +6,7 @@ import com.bentley.localweather.domain.WeatherUseCase
 import com.bentley.localweather.domain.entity.Location
 import com.bentley.localweather.domain.entity.WeatherInfo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 
 class WeatherViewModel @ViewModelInject
@@ -50,7 +48,8 @@ constructor(private val weatherUseCase: WeatherUseCase) : ViewModel() {
             }
 
             if (weatherList.size == searchResult.size) {
-                _weatherInfo.value = weatherList
+                _weatherInfo.value =
+                    weatherList.sortedBy { it.location.title }.toMutableList()
             }
         }
     }
@@ -63,10 +62,8 @@ constructor(private val weatherUseCase: WeatherUseCase) : ViewModel() {
     }
 
     private fun clear() {
-        Timber.d("clear $date")
         date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         weatherList = mutableListOf()
-        Timber.d("clear $date")
     }
 
     companion object {

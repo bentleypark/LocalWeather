@@ -23,6 +23,7 @@ class ConsolidatedWeatherMapper @Inject constructor() :
         return entity.map {
             with(it) {
                 ConsolidatedWeather(
+                    id,
                     weatherState,
                     weatherStateAbbr,
                     date.getDate(),

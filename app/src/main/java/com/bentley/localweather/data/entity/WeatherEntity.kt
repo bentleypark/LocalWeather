@@ -14,6 +14,8 @@ data class WeatherEntity(
 )
 
 data class ConsolidatedWeatherEntity(
+    @SerializedName("id")
+    val id: Double,
     @SerializedName("weather_state_name")
     val weatherState: String,
     @SerializedName("weather_state_abbr")

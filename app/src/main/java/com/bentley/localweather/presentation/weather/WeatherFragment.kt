@@ -13,10 +13,8 @@ import com.bentley.localweather.utils.makeGone
 import com.bentley.localweather.utils.makeVisible
 import com.bentley.localweather.utils.viewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
@@ -25,6 +23,7 @@ class WeatherFragment : Fragment() {
     private var binding: FragmentWeatherBinding by viewLifecycle()
     private var weatherList = mutableListOf<WeatherInfo>()
     private lateinit var weatherListAdapter: WeatherListAdapter
+    private var isRefresh = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,28 +43,31 @@ class WeatherFragment : Fragment() {
     private fun setUpObserve() {
         viewModel.apply {
             weatherInfo.observe(viewLifecycleOwner, { response ->
-                Timber.d(response.toString())
                 if (response.isNotEmpty()) {
                     weatherList = response
                     fetchNextWeatherInfo()
 
-                    if (weatherListAdapter.itemCount == DEFAULT_LIST_SIZE) {
-                        weatherListAdapter.addList(weatherList)
+                    if (!isRefresh) {
+                        if (weatherListAdapter.itemCount == DEFAULT_LIST_SIZE) {
+                            weatherListAdapter.addList(weatherList)
 
-                        lifecycleScope.launch {
-                            delay(2500)
-                            binding.apply {
-                                tvTitle.makeVisible()
-                                rvWeatherList.makeVisible()
-                                progressCircular.makeGone()
+                            lifecycleScope.launch {
+                                delay(2500)
+                                binding.apply {
+                                    tvTitle.makeVisible()
+                                    rvWeatherList.makeVisible()
+                                    progressCircular.makeGone()
+                                }
                             }
+                        } else {
+                            weatherListAdapter.notifyItemRangeChanged(
+                                0,
+                                weatherListAdapter.itemCount,
+                                weatherList
+                            )
                         }
                     } else {
-                        weatherListAdapter.notifyItemRangeChanged(
-                            0,
-                            weatherListAdapter.itemCount,
-                            weatherList
-                        )
+                        weatherListAdapter.updateList(weatherList)
                     }
                 }
             })
@@ -75,18 +77,21 @@ class WeatherFragment : Fragment() {
     private fun setUpView() {
         weatherListAdapter = WeatherListAdapter(weatherList)
         binding.apply {
+
             rvWeatherList.apply {
                 adapter = weatherListAdapter
                 setHasFixedSize(true)
             }
 
             swipeLayout.setOnRefreshListener {
-                lifecycleScope.launch{
+                lifecycleScope.launch {
+                    isRefresh = true
                     rvWeatherList.makeGone()
                     viewModel.fetchWeatherInfo()
-                    delay(3000)
+                    delay(6000)
                     swipeLayout.isRefreshing = false
                     rvWeatherList.makeVisible()
+                    isRefresh = false
                 }
             }
         }
