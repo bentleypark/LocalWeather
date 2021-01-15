@@ -71,13 +71,10 @@ dependencies {
 
     implementation Libs.coroutineAndroid
     implementation Libs.coroutineCore
-    implementation Libs.rxJava
-    implementation Libs.rxAndroid
 
     implementation Libs.retrofit
     implementation Libs.gson
     implementation Libs.gsonConverter
-    implementation Libs.rxjavaAdapter
     implementation Libs.okhttp
     implementation Libs.loggingInterceptor
 

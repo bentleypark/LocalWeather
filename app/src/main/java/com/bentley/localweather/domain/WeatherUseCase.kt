@@ -14,18 +14,6 @@ class WeatherUseCase @Inject constructor(private val weatherRepository: WeatherR
 
     suspend fun getConsolidatedWeather(id: Int, date: Int): ConsolidatedWeather {
         return withContext(Dispatchers.Default) {
-//            val weatherList = mutableListOf<ConsolidatedWeather>()
-//            val day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-//            val deferredList = ArrayList<Deferred<*>>()
-
-//            deferredList.add(async {
-//                weatherList.add(weatherRepository.getLocalWeatherInfoByDate(id, day))
-//            })
-//            deferredList.add(async {
-//                weatherList.add(weatherRepository.getLocalWeatherInfoByDate(id, day + 1))
-//            })
-//            deferredList.joinAll()
-
             return@withContext weatherRepository.getLocalWeatherInfoByDate(id, date)
         }
     }
